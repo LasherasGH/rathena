@@ -2337,7 +2337,7 @@ void script_set_constant_(const char* name, int64 value, const char* constant_na
 {
 	int n = add_str(name);
 
-	if( str_data[n].type == C_NOP )
+	if( str_data[n].type == C_NOP || !isparameter)
 	{// new
 		str_data[n].type = isparameter ? C_PARAM : C_INT;
 		str_data[n].val  = value;

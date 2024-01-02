@@ -4210,7 +4210,12 @@ ACMD_FUNC(reload) {
 		return -1;
 	}
 
-	if (strstr(command, "itemdb") || strncmp(message, "itemdb", 4) == 0) {
+
+	if (strstr(command, "const") || strncmp(message, "const", 3) == 0) {
+		constant_db.reload();
+		clif_displaymessage(fd, "Constants database has been reloaded"); // Constant database has been reloaded.
+	}
+	else if (strstr(command, "itemdb") || strncmp(message, "itemdb", 4) == 0) {
 		itemdb_reload();
 		clif_displaymessage(fd, msg_txt(sd,97)); // Item database has been reloaded.
 	} else if (strstr(command, "mobdb") || strncmp(message, "mobdb", 3) == 0) {
@@ -4284,6 +4289,7 @@ ACMD_FUNC(reload) {
 		pc_read_motd();
 		clif_displaymessage(fd, msg_txt(sd,268)); // Reloaded the Message of the Day.
 	} else if (strstr(command, "script") || strncmp(message, "script", 3) == 0) {
+		constant_db.reload();
 		struct s_mapiterator* iter;
 		map_session_data* pl_sd;
 		//atcommand_broadcast( fd, sd, "@broadcast", "Server is reloading scripts..." );
