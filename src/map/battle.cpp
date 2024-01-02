@@ -2552,8 +2552,14 @@ void battle_consume_ammo(map_session_data*sd, int skill, int lv)
 		if (!qty) qty = 1;
 	}
 
-	if (sd->equip_index[EQI_AMMO] >= 0) //Qty check should have been done in skill_check_condition
-		pc_delitem(sd,sd->equip_index[EQI_AMMO],qty,0,1,LOG_TYPE_CONSUME);
+	//Qty check should have been done in skill_check_condition
+	if (sd->equip_index[EQI_AMMO] >= 0)
+	{
+		if (!(sd->inventory_data[sd->equip_index[EQI_AMMO]]->flag.delay_consume & DELAYCONSUME_NOCONSUME) > 0)
+		{
+			pc_delitem(sd,sd->equip_index[EQI_AMMO],qty,0,1,LOG_TYPE_CONSUME);
+		}
+	}
 
 	sd->state.arrow_atk = 0;
 }
