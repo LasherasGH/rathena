@@ -2189,7 +2189,7 @@ public:
 	const std::string getDefaultLocation() override;
 	uint64 parseBodyNode(const ryml::NodeRef& node) override;
 };
-
+extern ConstantDatabase constant_db;
 /**
  * used to generate quick script_array entries
  **/
